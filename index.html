@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>القراءات اليومية</title>
+
+    <style>
+        body {
+            font-family: Tahoma, Arial;
+            background-color: #ffffff;
+            color: #222;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+        }
+
+        header {
+            background-color: #2b1d14;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 30px auto;
+            padding: 15px;
+        }
+
+        .section {
+            background-color: #f7f5f3;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2b1d14;
+            margin-bottom: 15px;
+        }
+
+        details {
+            margin-top: 12px;
+        }
+
+        summary {
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #4a2f22;
+        }
+
+        .reading {
+            margin-top: 10px;
+            padding-right: 12px;
+            line-height: 1.9;
+            border-right: 3px solid #d4c4b6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <p>مكتبة عائلة البابا شنودة الثالث</p>
+</header>
+
+<div class="container">
+
+    <!-- القراءات -->
+    <div class="section">
+        <div class="title">📖 قراءات الكتاب المقدس</div>
+
+        <details>
+            <summary>📜 العهد القديم</summary>
+            <div class="reading" id="old-testament"></div>
+        </details>
+
+        <details>
+            <summary>✝️ العهد الجديد</summary>
+            <div class="reading" id="new-testament"></div>
+        </details>
+    </div>
+
+    <!-- المناسبة -->
+    <div class="section">
+        <div class="title">📅 مناسبة اليوم</div>
+        <p id="occasion">جارٍ التحميل...</p>
+    </div>
+
+</div>
+
+<footer>
+    © مكتبة عائلة البابا شنودة الثالث
+</footer>
+
+<script>
+    // تحديد تاريخ اليوم
+    const today = new Date();
+    const key =
+        String(today.getMonth() + 1).padStart(2, '0') +
+        "-" +
+        String(today.getDate()).padStart(2, '0');
+
+    fetch('readings-data.json')
+        .then(response => response.json())
+        .then(data => {
+
+            const todayData = data[key];
+
+            if (!todayData) {
+                document.getElementById('occasion').innerText =
+                    "لا توجد بيانات مسجلة لهذا اليوم.";
+                return;
+            }
+
+            // المناسبة
+            document.getElementById('occasion').innerText =
+                todayData.occasion;
+
+            // العهد القديم
+            document.getElementById('old-testament').innerHTML =
+                todayData.readings.old_testament
+                    .map(r => `<p>${r}</p>`)
+                    .join("");
+
+            // العهد الجديد
+            document.getElementById('new-testament').innerHTML =
+                todayData.readings.new_testament
+                    .map(r => `<p>${r}</p>`)
+                    .join("");
+        });
+</script>
+
+</body>
+</html>
