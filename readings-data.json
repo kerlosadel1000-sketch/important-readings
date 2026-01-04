@@ -17,10 +17,25 @@
       "new_testament": ["قراءة ١", "قراءة ٢"]
     }
   },
+  "01-04": {
+    "occasion": " ",
+    "readings": {
+      "old_testament": ["تكوين 10 و 11 و 12"],
+      "new_testament": ["متى 4"]
+    }
+  },
+  "01-05": {
+    "occasion": " ",
+    "readings": {
+      "old_testament": ["تكوين 13 و 14 و 15"],
+      "new_testament": ["متى 5"]
+    }
+  },
   "01-06": {
     "occasion": "عيد الغطاس",
     "readings": {
       "old_testament": [
+        "تكوين 16 و 17 و 18" ,
         "إشعياء 42 : 1-9"
       ],
       "new_testament": [
